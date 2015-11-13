@@ -187,7 +187,17 @@ class PlgFabrik_ElementField extends PlgFabrik_Element
 		$layoutData = new stdClass;
 		$layoutData->attributes = $bits;
 
-		return $layout->render($layoutData);
+		$html = array();
+		$html[] = $layout->render($layoutData);	
+		if ($params->get('description', '') !== '')
+		{
+			$layout = $this->getLayout('form-description');
+			$displayData = new stdClass;
+			$displayData->opts = array('description'=>$params->get('description', ''),'elname'=>$bits['name']);	
+			$displayData->default = '';
+			$html[] = $layout->render($displayData,'');
+		}
+		return implode("\n", $html);
 	}
 
 	/**
