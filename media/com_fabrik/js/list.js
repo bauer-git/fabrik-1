@@ -228,7 +228,6 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
 			}else{
 				jQuery("div.itemContent").css('overflow','initial');
 			}	
-			jQuery("div.itemContentPadder").css('text-align','center');
 		}else{
 			/* reset the itemContent height to max */
 			if(jQuery("div.modal-footer").length) {
@@ -236,7 +235,8 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
 				jQuery("div.itemContent").css('height','auto');
 			}	
 		}			
-				
+		jQuery("#csvmsg").css('text-align','center');
+		
 		/* re-center the modal vertically */
 		var viewHeight = jQuery(window).outerHeight();					
 		var headHeight = jQuery("div.modal-header").outerHeight(true);
