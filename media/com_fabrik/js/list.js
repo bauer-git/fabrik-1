@@ -209,63 +209,95 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
                     }
                 }
             },
-            /* Expand/collapse and vertically center the CSV popup */
-			centerCSVWindow: function(start) {
-				/* hide the 'Save to' until file name is known */
-				var savingto = (start > 0) ? 'block' : 'none';
-				jQuery("p.saveto").css('display',savingto);	
+            
+            /* Expand/collapse and vertically center the CSV popup through each setep */
+	    centerCSVWindow: function(start) {
+		/* hide the 'Save to' until file name is known */
+		var savingto = (start > 0) ? 'block' : 'none';
+		jQuery("p.saveto").css('display',savingto);	
 				
-				/* allow modal to collapse height once form options are hidden
-				 * so that only csvmsg div is shown
-				 */
-				if(start >= 0){
-					jQuery("div.modal").css('height','auto');
-					jQuery("div.contentWrapper").css('height','auto');
-					jQuery("#csvmsg").css('text-align','center');
-				}else{
-					jQuery('div.opt__file-type div').css({'float':'left','width': (this.exportWindowOpts.optswidth-8)+'px','background-color':'bisque','margin':'0px','padding':'4px 8px','font-weight':'600'});
-				}			
+		/* allow modal to collapse height once form options are hidden
+		 * so that only csvmsg div is shown
+		 */
+		if(start >= 0 || jQuery("div.itemContent").outerHeight()==0){
+			/* If selectable options - hide and remove space in DOM by setting outerHeight to 0 */
+			if(jQuery("div.modal-footer").length) {
+				jQuery("div.itemContent").outerHeight(0);	
+				jQuery("div.modal").css('height','auto');	
+				jQuery("div.modal-footer").css('position','relative');	
+			}else{
+				jQuery("div.itemContent").css('overflow','initial');
+			}	
+			jQuery("div.itemContentPadder").css('text-align','center');
+		}else{
+			/* reset the itemContent height to max */
+			if(jQuery("div.modal-footer").length) {
+				jQuery('div.opt__file-type div').css({'float':'left','width': (this.exportWindowOpts.optswidth-8)+'px','background-color':'bisque','margin':'0px','padding':'4px 8px','font-weight':'600'});						
+				jQuery("div.itemContent").css('height','auto');
+			}	
+		}			
 				
-				/* re-center the modal vertically */
-				var viewHeight = jQuery(window).outerHeight();					
-				var modHeight = jQuery("div.modal").outerHeight();
-				if(modHeight > viewHeight){
-					jQuery( "div.modal" ).height(viewHeight);	
-					jQuery( "div.modal" ).css('top','0px');	
-				}else{
-					var offtop = (viewHeight-modHeight)/2;
-					jQuery("div.modal").css('top',offtop+'px');
-				}
-			},
-            openCSVWindow: function() {
+		/* re-center the modal vertically */
+		var viewHeight = jQuery(window).outerHeight();					
+		var headHeight = jQuery("div.modal-header").outerHeight(true);
+
+		/* modHeight source depends on if there is a mod_footer (options are shown) */
+		if(jQuery("div.modal-footer").length) {
+			var modHeight = jQuery("div.itemContent").outerHeight(true);
+			var footHeight =  jQuery("div.modal-footer").outerHeight(true);
+		}else{
+			/* just hard-code the itemContent height if no options and footer are used */
+			var modHeight = 134;
+			var footHeight = 0;
+			jQuery( "div.modal" ).css('height',(headHeight+modHeight)+'px');
+		}
+			
+		var frameHeight = parseInt(headHeight+modHeight+footHeight);
+		/* If modal height will be within 10px of max (viewport) height
+		 * set height of scrolling content be to 80% of viewport height 
+		 * (allowing for header and footer)
+		 */
+		if(frameHeight+10 > viewHeight){
+			var fullHeight= parseInt(headHeight+(viewHeight*.8)+footHeight);
+			jQuery( "div.itemContent" ).outerHeight(parseInt(viewHeight*.8));				
+			jQuery( "div.modal" ).outerHeight(fullHeight);	
+			var offtop = parseInt((viewHeight-fullHeight)/2);
+			jQuery( "div.modal" ).css('top',offtop+'px');	
+		}else{
+			var offtop = parseInt((viewHeight-frameHeight)/2);
+			jQuery("div.modal").css('top',offtop+'px');
+		}
+	    },
+	    
+	    openCSVWindow: function() {
                 var self = this;
                 this.exportWindowOpts.content = this.makeCSVExportForm();
                 this.csvWindow = Fabrik.getWindow(this.exportWindowOpts);
 	
-				/* Prevent browser window from being scrolled */
-				jQuery('body').css({'height':'100%','overflow':'hidden'});
+		/* Prevent browser window from being scrolled */
+		jQuery('body').css({'height':'100%','overflow':'hidden'});
 
-				/* Allow browser window to be scrolled again when modal is released from DOM */
-				jQuery("div.modal").on("remove", function () {
-					jQuery('body').css({'height':'initial','overflow':'initial'});	
-				});	
+		/* Allow browser window to be scrolled again when modal is released from DOM */
+		jQuery("div.modal").on("remove", function () {
+			jQuery('body').css({'height':'initial','overflow':'initial'});	
+		});	
 
-				/* adds draggable feature to modal popup */
-				jQuery("div.modal").draggable({
-					handle: ".modal-header"
-				});
-				jQuery(".modal-header").on('mouseover', function(){
-					jQuery(this).css('cursor','move');
-				});				
+		/* adds draggable feature to modal popup */
+		jQuery("div.modal").draggable({
+			handle: ".modal-header"
+		});
+		jQuery(".modal-header").on('mouseover', function(){
+			jQuery(this).css('cursor','move');
+		});				
 				
-				/* force every form option to new line */
-				jQuery("div.modal").find('form div[class^=opt__]').css({'clear':'left','float':'left','white-space':'nowrap'});
+		/* force every form option to new line */
+		jQuery("div.modal").find('form div[class^=opt__]').css({'clear':'left','float':'left','white-space':'nowrap'});
 				
-				/* Allow wide option labels to wrap */
-				jQuery("div.modal").find('form div[class^=opt__] div').css({'line-height':'1.1em','white-space':'initial'});
+		/* Allow wide option labels to wrap */
+		jQuery("div.modal").find('form div[class^=opt__] div').css({'line-height':'1.1em','white-space':'initial'});
 				
-				/* vertically center the popup */
-				this.centerCSVWindow();	   
+		/* vertically center the popup */
+		this.centerCSVWindow();	   
 
                 jQuery('.exportCSVButton').on('click', function (e) {
                     e.stopPropagation();
