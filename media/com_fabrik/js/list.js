@@ -43,8 +43,8 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
                     incraw      : false,
                     inccalcs    : false
                 },
-				'popup_width'        : 300,
-				'popup_height'       : 300,
+		'popup_width'        : 300,
+		'popup_height'       : 300,
                 'popup_offset_x'     : null,
                 'popup_offset_y'     : null,
                 'groupByOpts'        : {},
@@ -367,7 +367,7 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
              * @private
              */
             _csvYesNo: function (name, yesValue, yesLabel, noLabel, title) {
-				var label = jQuery('<label />').css({'display':'inline-block','margin-left':'15px'});
+		var label = jQuery('<label />').css({'display':'inline-block','margin-left':'15px'});
 
                 var yes = label.clone().append(
                     [jQuery('<input />').attr({
@@ -389,7 +389,7 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
                             jQuery('<span />').text(noLabel)
                         ]),
                     titleLabel = jQuery('<div>').css({
-						'margin': '3px 0px 1px 8px',
+			'margin': '3px 0px 1px 8px',
                         'width': this.exportWindowOpts.optswidth + 'px',
                         'float': 'left'
                     }).text(title);
@@ -427,11 +427,11 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
                         yes, no, Joomla.JText._('COM_FABRIK_INCLUDE_CALCULATIONS')),
 
                 ]);
-				thisText = Joomla.JText._('COM_FABRIK_SELECT_COLUMNS_TO_EXPORT');
-				thisClass = 'opt__' + self.makeSafeForCSS(thisText);	
+		thisText = Joomla.JText._('COM_FABRIK_SELECT_COLUMNS_TO_EXPORT');
+		thisClass = 'opt__' + self.makeSafeForCSS(thisText);	
                 jQuery('<div />').prop('class',thisClass)
-				.css({'clear':'left','float':'left','white-space':'nowrap','background-color':'bisque','padding':'2px 8px','font-weight':'600','margin-top':'10px'})
-				.text(thisText).appendTo(c);
+			.css({'clear':'left','float':'left','white-space':'nowrap','background-color':'bisque','padding':'2px 8px','font-weight':'600','margin-top':'10px'})
+			.text(thisText).appendTo(c);
                 var g = '';
                 var i = 0;
                 jQuery.each(this.options.labels, function (k, labelText) {
@@ -439,7 +439,7 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
                         var newg = k.split('___')[0];
                         if (newg !== g) {
                             g = newg;
-							thisClass = 'opt__' + self.makeSafeForCSS(g);								
+			    thisClass = 'opt__' + self.makeSafeForCSS(g);								
                             jQuery('<div />').prop('class',thisClass).css({'clear':'left','font-weight':'600'}).text(g).appendTo(c);
                         }
 
@@ -453,14 +453,14 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
 
                 // elements not shown in table
                 if (this.options.formels.length > 0) {
-					thisText = Joomla.JText._('COM_FABRIK_FORM_FIELDS');
-					thisClass = 'opt__' + self.makeSafeForCSS(thisText);					
+		    thisText = Joomla.JText._('COM_FABRIK_FORM_FIELDS');
+		    thisClass = 'opt__' + self.makeSafeForCSS(thisText);					
                     jQuery('<div />').prop('class',thisClass)
                     .css({'clear':'left','float':'left','white-space':'nowrap','background-color':'bisque','padding':'2px 8px','font-weight':'600','margin-top':'10px'})
                     .text(thisText).appendTo(c);
                     this.options.formels.each(function (el) {
                         self._csvYesNo('fields[' + el.name + ']', false,
-                            yes, no, el.label).appendTo(c);
+                        yes, no, el.label).appendTo(c);
                     });
                 }
 
@@ -583,8 +583,8 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
 
                                 document.getElements('input.exportCSVButton').removeProperty('disabled');
                                 jQuery('#csvmsg a.btn-success').mouseup(function () {
-									jQuery(this).hide();
-								});	
+					jQuery(this).hide();
+				});	
 								
                                 jQuery('#csvmsg a.btn-success').focusout(function () {
                                     Fabrik.Windows.exportcsv.close(true);
