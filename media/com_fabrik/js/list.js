@@ -220,7 +220,6 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
 			if(jQuery('div.modal-footer').length) {
 				jQuery('div.itemContent').outerHeight(0);	
 				jQuery('div.modal').css('height','auto');	
-				jQuery('div.modal-footer').css('position','relative');	
 			}else{
 				jQuery('div.itemContent').css('overflow','initial');
 			}	
@@ -229,8 +228,10 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
 			if(jQuery('div.modal-footer').length) {
 				jQuery('div.opt__file-type div').css({'float':'left','width': (this.exportWindowOpts.optswidth-8)+'px','background-color':'bisque','margin':'0px','padding':'4px 8px','font-weight':'600'});						
 				jQuery('div.itemContent').css('height','auto');
+				jQuery('div.modal').css('height','auto');	
 			}	
-		}			
+		}
+		jQuery('div.contentWrapper').css('height','auto');
 		jQuery('#csvmsg').css('text-align','center');
 									
 		/* re-center the modal vertically */
@@ -272,15 +273,9 @@ define(['jquery', 'fab/fabrik', 'fab/list-toggle', 'fab/list-grouped-toggler', '
                 this.exportWindowOpts.content = this.makeCSVExportForm();
                 this.csvWindow = Fabrik.getWindow(this.exportWindowOpts);
 				
-		/* fix footer to bottom and align Export button */
-		jQuery('div.modal-footer').css(
-			{'position':'absolute',
-			 'bottom':'0px',
-			 'padding':'15px 0px',
-			 'width':'inherit'
-			});
-		jQuery('.exportCSVButton').css('margin-right','15px');
-			
+		/* set modal window height to auto to allow collapes/expansion */
+		jQuery('div.modal').css('height','auto');	
+
 		/* Prevent browser window from being scrolled */
 		jQuery('body').css({'height':'100%','overflow':'hidden'});
 
