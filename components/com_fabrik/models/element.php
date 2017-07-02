@@ -1529,7 +1529,7 @@ class PlgFabrik_Element extends FabrikPlugin
              		* was specified in list_copy_default_columns of the list copy plugin configuration.
              		*
              		*/
-            		if (array_key_exists('fabrik_copy_from_table', $data))
+            		if (array_key_exists('list_copy_default_columns', $data))
             		{
                 		$adefaults = explode(' ',(string)$data['list_copy_default_columns']);
                 		if(in_array($name,$adefaults)) $data = null;
