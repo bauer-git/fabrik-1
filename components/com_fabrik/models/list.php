@@ -11666,7 +11666,7 @@ class FabrikFEModelList extends JModelForm
                 		$def = $value;
                 		break;
             		}
-            		$row['list_copy_default_columns'] = $def;
+            		if(!empty($def)) $row['list_copy_default_columns'] = $def;
 			
 			$formModel->formData = $row;
 
