@@ -25,6 +25,14 @@
 			       label="PLG_FABRIK_LIST_COPY_IMAGE_LABEL"
 			       repeat="true"
 			       size="20"/>
+			
+			<field name="list_copy_default_columns"
+			       type="textarea"
+			       cols="180"
+			       description="PLG_FABRIK_LIST_COPY_DEFAULT_COLUMNS_DESC"
+			       label="PLG_FABRIK_LIST_COPY_DEFAULT_COLUMNS_LABEL"
+		               repeat="true"
+                	       rows="6"/>  
 
 		</fieldset>
 	</fields>
