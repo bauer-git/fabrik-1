@@ -281,7 +281,7 @@ define(['jquery', 'fab/element'], function (jQuery, FbElement) {
 			this.outputs = this.options.outputs;
 			this.redField = null;
 			this.widget = new Element('div');
-			this.colourNameOutput = new Element('span', {'stlye': 'padding:3px'});
+			this.colourNameOutput = new Element('span', {'style': 'padding:3px'});
 			jQuery('.modal-header').append(this.colourNameOutput);
 			this.createColourSwatch(element);
 			return this.widget;
