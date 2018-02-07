@@ -195,10 +195,10 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
 
                     actualWidth = $tip[0].offsetWidth;
                     actualHeight = $tip[0].offsetHeight;
-                    var maxwidth = Math.min(actualWidth,this.options.maxwidth);
+                    var maxwidth = this.options.maxwidth;
                     var xpos = parseInt(window.fabrikTipXpos);
                     var tippos = inside ? placement.split(' ')[1] : placement;
-                    switch (inside ? placement.split(' ')[1] : placement) {
+                    switch (tippos) {
                         case 'bottom':
                             leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
                             // If tip is outside viewport, position tip to left/right edge of window (w/margin of 10px) 
