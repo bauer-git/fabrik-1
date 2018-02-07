@@ -17,6 +17,7 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
             'position'  : 'top',
             'trigger'   : 'hover',
             'content'   : 'title',
+            'maxwidth'  : 276,
             'distance'  : 50,
             'tipfx'     : 'Fx.Transitions.linear',
             'heading'   : '',
@@ -173,7 +174,7 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
             },
 
             show: function () {
-                var $tip, inside, pos, actualWidth, actualHeight, placement, tp;
+                var $tip, inside, pos, actualWidth, actualHeight, placement, tp, leftpos;
                 if (this.hasContent() && this.enabled) {
                     $tip = this.tip();
                     this.setContent();
@@ -194,10 +195,18 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
 
                     actualWidth = $tip[0].offsetWidth;
                     actualHeight = $tip[0].offsetHeight;
-
+                    var maxwidth = Math.min(actualWidth,this.options.maxwidth);
+                    var xpos = parseInt(window.fabrikTipXpos);
+                    var tippos = inside ? placement.split(' ')[1] : placement;
                     switch (inside ? placement.split(' ')[1] : placement) {
                         case 'bottom':
-                            tp = {top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2};
+                            leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
+                            // If tip is outside viewport, position tip to left/right edge of window (w/margin of 10px) 
+                            if (leftpos < 0) {leftpos = 10;} 
+                            if (leftpos + maxwidth > parseInt(jQuery(window).width())) {
+                                leftpos = parseInt(jQuery(window).width()) - maxwidth -10 ;
+                            } 
+                            tp = {'top': pos.top + pos.height, 'left': leftpos, 'max-width': maxwidth+'px'};
                             break;
                         case 'bottom-left':
                             tp = {top: pos.top + pos.height, left: pos.left};
@@ -208,7 +217,12 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                             placement = 'bottom';
                             break;
                         case 'top':
-                            tp = {top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2};
+                            leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
+                            if (leftpos < 0) {leftpos = 10;} 
+                            if (leftpos + maxwidth > parseInt(jQuery(window).width())) {
+                                leftpos = parseInt(jQuery(window).width()) - maxwidth - 10;
+                            } 
+                            tp = {'top': pos.top - actualHeight, 'left': leftpos, 'max-width': maxwidth+'px'};
                             break;
                         case 'top-left':
                             tp = {top: pos.top - actualHeight, left: pos.left};
@@ -230,6 +244,13 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                         .css(tp)
                         .addClass(placement)
                         .addClass('in');
+                    if ( (tippos.includes("top") || tippos.includes("bottom")) 
+                        && xpos > 0 && xpos > leftpos+15 && xpos < leftpos+maxwidth-15 ) {
+                        $tip.find("div.arrow").css('left',xpos-leftpos);
+                    }                           
+                    if(tippos.includes("top") && $tip[0].offsetHeight !== actualHeight){                       
+                        $tip.css("top",pos.top - $tip[0].offsetHeight);
+                    }                     
                 }
             }
         });
