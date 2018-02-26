@@ -612,7 +612,16 @@
 						<option value="bottom-right">COM_FABRIK_TIP_LOCATION_BOTTOM_RIGHT</option>
 						<option value="left">COM_FABRIK_TIP_LOCATION_LEFT</option>
 				</field>
-
+				
+				<field name="tipmaxwidth"
+					type="text"
+                    			class="input-mini"
+                    			size="4"
+                    			default="276"
+					description="COM_FABRIK_FIELD_ELEMENT_TIP_MAXWIDTH_DESC"
+					label="COM_FABRIK_FIELD_ELEMENT_TIP_MAXWIDTH_LABEL" >
+				</field>                
+ 
 				<field name="labelindetails"
 					type="radio"
 					class="btn-group"
