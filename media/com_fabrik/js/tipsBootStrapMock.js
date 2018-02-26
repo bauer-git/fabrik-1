@@ -44,9 +44,19 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                 } else {
                     return pos;
                 }
-            }
+            },
+            setwidth   : function (tip, ele) {                
+                // Return 276 to use the default maxwidth
+                Fabrik.fireEvent('bootstrap.tips.width', [tip, ele]);
+                var tipwidth = Fabrik.eventResults.tipwidth === 0 ? false : Fabrik.eventResults[0];
+                if (tipwidth === false) {
+                    var opts = JSON.parse(ele.get('opts', '{}').opts);
+                    return opts && opts.maxwidth ? opts.maxwidth: 276;
+                } else {
+                    return tipwidth;
+                }
+            }    
         },
-
         initialize: function (elements, options) {
             if (Fabrik.bootstrapVersion('modal') === '3.x' || typeof(Materialize) === 'object') {
                 // We should override any Fabrik3 custom tip settings with bootstrap3 data-foo attributes in JLayouts
@@ -87,6 +97,10 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                     thisOpts.defaultPos = thisOpts.position;
                     delete(thisOpts.position);
                 }
+                if (thisOpts.setwidth) {
+                    thisOpts.maxwidth = thisOpts.setwidth;
+                    delete(thisOpts.setwidth);
+                }                
                 var opts = jQuery.extend({}, self.options, thisOpts);
                 if (opts.content === 'title') {
                     opts.content = jQuery(this).prop('title');
@@ -195,13 +209,15 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
 
                     actualWidth = $tip[0].offsetWidth;
                     actualHeight = $tip[0].offsetHeight;
-                    var maxwidth = this.options.maxwidth;
+                    var maxwidth = this.options.maxwidth>0 ? this.options.maxwidth : actualWidth;
                     var xpos = parseInt(window.fabrikTipXpos);
                     var tippos = inside ? placement.split(' ')[1] : placement;
                     switch (tippos) {
                         case 'bottom':
                             leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
-                            // If tip is outside viewport, position tip to left/right edge of window (w/margin of 10px) 
+                            if (leftpos > xpos) {
+                                leftpos = xpos-15;
+                            }   
                             if (leftpos < 0) {leftpos = 10;} 
                             if (leftpos + maxwidth > parseInt(jQuery(window).width())) {
                                 leftpos = parseInt(jQuery(window).width()) - maxwidth -10 ;
@@ -218,6 +234,9 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                             break;
                         case 'top':
                             leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
+                            if (leftpos > xpos) {
+                                leftpos = xpos-15;
+                            }   
                             if (leftpos < 0) {leftpos = 10;} 
                             if (leftpos + maxwidth > parseInt(jQuery(window).width())) {
                                 leftpos = parseInt(jQuery(window).width()) - maxwidth - 10;
@@ -268,6 +287,11 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                 }
             });
         };
+        
+        $(".fabrikTip").on("mouseenter", function(e){
+            window.fabrikTipXpos = e.clientX;
+        });         
+        
     })(jQuery);
 
     return FloatingTips;
