@@ -188,7 +188,7 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
             },
 
             show: function () {
-                var $tip, inside, pos, actualWidth, actualHeight, placement, tp, leftpos;
+                var $tip, tp, leftpos;
                 if (this.hasContent() && this.enabled) {
                     $tip = this.tip();
                     this.setContent();
@@ -205,11 +205,10 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                         .css({top: 0, left: 0, display: 'block'})
                         .appendTo(inside ? this.$element : document.body);
 
-                    pos = this.getPosition(inside);
-
-                    actualWidth = $tip[0].offsetWidth;
-                    actualHeight = $tip[0].offsetHeight;
-                    var maxwidth = this.options.maxwidth>0 ? this.options.maxwidth : actualWidth;
+                    var pos = this.getPosition(inside);
+                    var actualWidth = $tip[0].offsetWidth;
+                    var actualHeight = $tip[0].offsetHeight;
+                    var maxwidth = this.options.maxwidth>0 ? parseInt(this.options.maxwidth) : actualWidth;
                     var xpos = parseInt(window.fabrikTipXpos);
                     var tippos = inside ? placement.split(' ')[1] : placement;
                     switch (tippos) {
@@ -263,8 +262,9 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                         .css(tp)
                         .addClass(placement)
                         .addClass('in');
+                    
                     if ( (tippos.includes("top") || tippos.includes("bottom")) 
-                        && xpos > 0 && xpos > leftpos+15 && xpos < leftpos+maxwidth-15 ) {
+                        && xpos > 0 && xpos >= leftpos+15 && xpos <= leftpos+maxwidth-15 ) {
                         $tip.find("div.arrow").css('left',xpos-leftpos);
                     }                           
                     if(tippos.includes("top") && $tip[0].offsetHeight !== actualHeight){                       
