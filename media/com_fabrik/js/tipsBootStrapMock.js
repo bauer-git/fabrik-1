@@ -87,6 +87,9 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
             this.elements = jQuery(elements);
             var self = this;
             this.elements.each(function () {
+                jQuery(this).on("mouseenter", function(e){
+                    window.fabrikTipXpos = e.clientX;
+                });                   
                 try {
                     var o = JSON.parse(jQuery(this).attr('opts'));
                     thisOpts = jQuery.type(o) === 'object' ? o : {};
@@ -287,11 +290,7 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                 }
             });
         };
-        
-        $(".fabrikTip").on("mouseenter", function(e){
-            window.fabrikTipXpos = e.clientX;
-        });         
-        
+       
     })(jQuery);
 
     return FloatingTips;
