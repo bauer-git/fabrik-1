@@ -1867,15 +1867,16 @@ class PlgFabrik_Element extends FabrikPlugin
 	 */
 	protected function tipOpts()
 	{
-		$params         = $this->getParams();
-		$opts           = new stdClass;
-		$pos            = $params->get('tiplocation', 'top');
-	        $tipwidth       = $params->get('tipmaxwidth', 276);
-        	$opts->setwidth = $tipwidth;        
-		$opts->formTip  = true;
-		$opts->position = $pos;
-		$opts->trigger  = 'hover';
-		$opts->notice   = true;
+		$params             = $this->getParams();
+        	$opts               = new stdClass;
+        	$opts->setwidth     = $params->get('tipmaxwidth', 276);
+        	$opts->tiptitle     = $params->get('tiptitle',''); 
+        	$opts->tipuselabel  = $params->get('tipuselabel','0');
+        	$opts->heading      = '';        
+		$opts->formTip      = true;
+		$opts->position     = $params->get('tiplocation', 'top');
+		$opts->trigger      = 'hover';
+		$opts->notice       = true;
 
 		if ($this->editable)
 		{
