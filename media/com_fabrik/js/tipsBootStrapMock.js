@@ -103,7 +103,17 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                 if (thisOpts.setwidth) {
                     thisOpts.maxwidth = thisOpts.setwidth;
                     delete(thisOpts.setwidth);
-                }                
+                } 
+                var headertxt = '';
+                if (thisOpts.tipuselabel == '1'){
+                    headertxt = this.innerText;                 
+                } else if (thisOpts.tiptitle === '') {
+                    headertxt = thisOpts.heading;                 
+                } else if (thisOpts.tiptitle != 'x') {
+                    headertxt = thisOpts.tiptitle;                 
+                }
+                thisOpts.heading = headertxt;
+                
                 var opts = jQuery.extend({}, self.options, thisOpts);
                 if (opts.content === 'title') {
                     opts.content = jQuery(this).prop('title');
