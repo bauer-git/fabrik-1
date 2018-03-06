@@ -622,23 +622,20 @@
 					label="COM_FABRIK_FIELD_ELEMENT_TIP_MAXWIDTH_LABEL" >
 				</field>               
 				
+				<field name="tipuselabel"
+                    			type="checkbox"
+                    			value="1"	
+                    			description="COM_FABRIK_FIELD_ELEMENT_TIP_USE_LABEL_DESC"
+					label="COM_FABRIK_FIELD_ELEMENT_TIP_USE_LABEL_LABEL" >
+                		</field>                
+                
 				<field name="tiptitle"
                     			type="textorwysiwyg"
                     			size="35"
-                    			showon="tipuselabel:0"
+                    			showon="tipuselabel!:1"
                     			description="COM_FABRIK_FIELD_ELEMENT_TIP_TITLE_DESC"
 					label="COM_FABRIK_FIELD_ELEMENT_TIP_TITLE_LABEL" >
-				</field>  
-                
-				<field name="tipuselabel"
-                    			type="radio"
-                    			class="btn-group"
-                    			default="0"
-                    			description="COM_FABRIK_FIELD_ELEMENT_TIP_USE_LABEL_DESC"
-					label="COM_FABRIK_FIELD_ELEMENT_TIP_USE_LABEL_LABEL" >
-			                        <option value="0">JNO</option>
-                        			<option value="1">JYES</option>
-                		</field>                
+				</field> 
 				
 				<field name="labelindetails"
 					type="radio"
