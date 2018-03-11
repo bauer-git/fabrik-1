@@ -1870,7 +1870,8 @@ class PlgFabrik_Element extends FabrikPlugin
 		$params             = $this->getParams();
         	$opts               = new stdClass;
         	$opts->setwidth     = $params->get('tipmaxwidth', 276);
-        	$opts->tiptitle     = $params->get('tiptitle',''); 
+        	$tiptitle           = $params->get('tiptitle','');
+        	$opts->tiptitle     = htmlentities($tiptitle,ENT_QUOTES);
         	$opts->tipuselabel  = $params->get('tipuselabel','0');
         	$opts->heading      = '';        
 		$opts->formTip      = true;
