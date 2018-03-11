@@ -592,19 +592,16 @@
                 		</field>                
                 
 				<field name="tiptitle"
-                    			type="text"
-                    			size="35"
+                    			type="editor"
                     			showon="tipuselabel:0"
                     			description="COM_FABRIK_FIELD_ELEMENT_TIP_TITLE_DESC"
 					label="COM_FABRIK_FIELD_ELEMENT_TIP_TITLE_LABEL" >
 				</field>  				
 				
 				<field name="rollover"
-					type="textarea"
-					cols="6"
+					type="editor"
 					description="COM_FABRIK_FIELD_TIP_TEXT_DESC"
-					label="COM_FABRIK_FIELD_TIP_TEXT_LABEL"
-					rows="10"/>
+					label="COM_FABRIK_FIELD_TIP_TEXT_LABEL"/>
 
 				<field name="tipseval"
 					type="radio"
