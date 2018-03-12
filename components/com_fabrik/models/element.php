@@ -1870,8 +1870,9 @@ class PlgFabrik_Element extends FabrikPlugin
 		$params             = $this->getParams();
         	$opts               = new stdClass;
         	$opts->setwidth     = $params->get('tipmaxwidth', 276);
-        	$tiptitle           = $params->get('tiptitle','');
-        	$opts->tiptitle     = htmlentities($tiptitle,ENT_QUOTES);
+        	$tiptitle           = $params->get('tiptitle','','raw');
+		// escape any double quotes used in tip title text or html attributes ~ Bauer 
+        	$opts->tiptitle     = htmlentities(str_replace('"','\\"',$tiptitle),ENT_QUOTES);
         	$opts->tipuselabel  = $params->get('tipuselabel','0');
         	$opts->heading      = '';        
 		$opts->formTip      = true;
@@ -2355,7 +2356,7 @@ class PlgFabrik_Element extends FabrikPlugin
 	{
 		$title = $this->tipTextAndValidations($mode, $data);
 		$opts  = $this->tipOpts();
-		$opts  = json_encode($opts);
+		$opts  = str_replace('\\\\', '\\', json_encode($opts));
 
 		return $title !== '' ? 'title="' . $title . '" opts=\'' . $opts . '\'' : '';
 	}
