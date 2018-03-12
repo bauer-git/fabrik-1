@@ -201,9 +201,8 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
             },
 
             show: function () {
-                var $tip, tp, leftpos;
                 if (this.hasContent() && this.enabled) {
-                    $tip = this.tip();
+                    var $tip = this.tip();
                     this.setContent();
 
                     if (this.options.animation) {
@@ -226,7 +225,7 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                     var tippos = inside ? placement.split(' ')[1] : placement;
                     switch (tippos) {
                         case 'bottom':
-                            leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
+                            var leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
                             if (leftpos > xpos) {
                                 leftpos = xpos-15;
                             }   
@@ -234,18 +233,18 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                             if (leftpos + maxwidth > parseInt(jQuery(window).width())) {
                                 leftpos = parseInt(jQuery(window).width()) - maxwidth -10 ;
                             } 
-                            tp = {'top': pos.top + pos.height, 'left': leftpos, 'max-width': maxwidth+'px'};
+                            var tp = {'top': pos.top + pos.height, 'left': leftpos, 'max-width': maxwidth+'px'};
                             break;
                         case 'bottom-left':
-                            tp = {top: pos.top + pos.height, left: pos.left};
+                            var tp = {top: pos.top + pos.height, left: pos.left};
                             placement = 'bottom';
                             break;
                         case 'bottom-right':
-                            tp = {top: pos.top + pos.height, left: pos.left + pos.width - actualWidth};
+                            var tp = {top: pos.top + pos.height, left: pos.left + pos.width - actualWidth};
                             placement = 'bottom';
                             break;
                         case 'top':
-                            leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
+                            var leftpos = pos.left + pos.width / 2 - maxwidth / 2 ;
                             if (leftpos > xpos) {
                                 leftpos = xpos-15;
                             }   
@@ -253,21 +252,21 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                             if (leftpos + maxwidth > parseInt(jQuery(window).width())) {
                                 leftpos = parseInt(jQuery(window).width()) - maxwidth - 10;
                             } 
-                            tp = {'top': pos.top - actualHeight, 'left': leftpos, 'max-width': maxwidth+'px'};
+                            var tp = {'top': pos.top - actualHeight, 'left': leftpos, 'max-width': maxwidth+'px'};
                             break;
                         case 'top-left':
-                            tp = {top: pos.top - actualHeight, left: pos.left};
+                            var tp = {top: pos.top - actualHeight, left: pos.left};
                             placement = 'top';
                             break;
                         case 'top-right':
-                            tp = {top: pos.top - actualHeight, left: pos.left + pos.width - actualWidth};
+                            var tp = {top: pos.top - actualHeight, left: pos.left + pos.width - actualWidth};
                             placement = 'top';
                             break;
                         case 'left':
-                            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth};
+                            var tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth};
                             break;
                         case 'right':
-                            tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width};
+                            var tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width};
                             break;
                     }
 
