@@ -17,10 +17,7 @@ if ($this->field->showon)
 {
 	JHtml::_('jquery.framework');
 	JHtml::_('script', 'jui/cms.js', array('version' => 'auto', 'relative' => true));
-    	$dataShowOn = ' data-showon=\'' . json_encode(JFormHelper::parseShowOnConditions($this->field->showon, $this->field->formControl, $this->field->group)) . '\'';
-                    
 	$showOns = JFormHelper::parseShowOnConditions($this->field->showon, $this->field->formControl, $this->field->group);
-
 	if ($this->field->repeat)
 	{
 		foreach ($showOns as &$showOn)
@@ -28,7 +25,6 @@ if ($this->field->showon)
 			$showOn['field'] .= '[' . $form->repeatCounter . ']';
 		}
 	}
-
 	$dataShowOn = ' data-showon=\'' . json_encode($showOns) . '\'';
 }
 
