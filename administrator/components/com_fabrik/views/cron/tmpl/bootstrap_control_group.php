@@ -12,8 +12,26 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+$dataShowOn = '';
+if ($this->field->showon)
+{
+	JHtml::_('jquery.framework');
+	JHtml::_('script', 'jui/cms.js', array('version' => 'auto', 'relative' => true));
+                 
+	$showOns = JFormHelper::parseShowOnConditions($this->field->showon, $this->field->formControl, $this->field->group);
+
+	if ($this->field->repeat)
+	{
+		foreach ($showOns as &$showOn)
+		{
+			$showOn['field'] .= '[' . $form->repeatCounter . ']';
+		}
+	}
+
+	$dataShowOn = ' data-showon=\'' . json_encode($showOns) . '\'';
+}
 ?>
-<div class="control-group">
+<div class="control-group"<?php echo $dataShowOn; ?>>
 <?php if (!$this->field->hidden) :?>
 	<div class="control-label">
 		<?php echo $this->field->label; ?>
