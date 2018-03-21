@@ -83,12 +83,13 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                 });
                 return;
             }
+            window.fabrikTipXpos = [];
             var thisOpts;
             this.elements = jQuery(elements);
             var self = this;
             this.elements.each(function () {
                 jQuery(this).on("mouseenter", function(e){
-                    window.fabrikTipXpos = e.clientX;
+                    window.fabrikTipXpos[jQuery(this)[0].htmlFor] = e.clientX;
                 });                   
                 try {
                     var o = JSON.parse(jQuery(this).attr('opts'));
@@ -221,7 +222,11 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                     var actualWidth = $tip[0].offsetWidth;
                     var actualHeight = $tip[0].offsetHeight;
                     var maxwidth = this.options.maxwidth>0 ? parseInt(this.options.maxwidth) : actualWidth;
-                    var xpos = parseInt(window.fabrikTipXpos);
+                    if ( isNaN(window.fabrikTipXpos[this.$element["0"].htmlFor]) ) {
+                        var xpos = parseInt(this.$element["0"].offsetLeft) + 25 ;
+                    }else{    
+                        var xpos = parseInt(window.fabrikTipXpos[this.$element["0"].htmlFor]);
+                    } 
                     var tippos = inside ? placement.split(' ')[1] : placement;
                     switch (tippos) {
                         case 'bottom':
