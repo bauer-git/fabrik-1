@@ -222,6 +222,7 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                     var actualWidth = $tip[0].offsetWidth;
                     var actualHeight = $tip[0].offsetHeight;
                     var maxwidth = this.options.maxwidth>0 ? parseInt(this.options.maxwidth) : actualWidth;
+                    maxwidth = Math.min(maxwidth,actualWidth);
                     if ( isNaN(window.fabrikTipXpos[this.$element["0"].htmlFor]) ) {
                         var xpos = parseInt(this.$element["0"].offsetLeft) + 25 ;
                     }else{    
