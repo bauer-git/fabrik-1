@@ -1909,7 +1909,7 @@ class PlgFabrik_Element extends FabrikPlugin
 			return '';
 		}
 
-		if ($this->isTipped($mode))
+		if ($this->isTipped($mode) && !empty($this->getTipText($data)))
 		{
 			$lines[] = '<li>' . FabrikHelperHTML::image('question-sign', 'form', $tmpl) . ' ' . $this->getTipText($data) . '</li>';
 		}
