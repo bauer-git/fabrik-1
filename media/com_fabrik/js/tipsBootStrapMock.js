@@ -280,8 +280,9 @@ define(['jquery', 'fab/fabrik'], function (jQuery, Fabrik) {
                         .addClass(placement)
                         .addClass('in');
                     
+                    actualWidth = this.$tip["0"].offsetWidth;
                     if ( (tippos.includes("top") || tippos.includes("bottom")) 
-                        && xpos > 0 && xpos >= leftpos+15 && xpos <= leftpos+maxwidth-15 ) {
+                        && xpos > 0 && xpos >= leftpos+15 && xpos <= leftpos+actualWidth-15 ) {
                         $tip.find("div.arrow").css('left',xpos-leftpos);
                     }                           
                     if(tippos.includes("top") && $tip[0].offsetHeight !== actualHeight){                       
