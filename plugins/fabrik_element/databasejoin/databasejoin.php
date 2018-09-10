@@ -4025,7 +4025,7 @@ class PlgFabrik_ElementDatabasejoin extends PlgFabrik_ElementList
 		{
 			foreach ($group as $row)
 			{
-				if (!empty($row->$fulName))
+				if (isset($row->$fulName) && !empty($row->$fulName))
 				{
 					$keys = array_merge($keys, explode(GROUPSPLITTER, $row->$fulName));
 				} 			}
